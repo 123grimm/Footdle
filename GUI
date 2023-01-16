@@ -1,1 +1,26 @@
 
+package footdle;
+import javax.swing.*;
+import java.awt.*;
+
+public class GUI extends JPanel {
+
+    private Frame f;
+
+    public GUI() {
+        this.f = new Frame("Footdle"/*, 0, 0, 1500, 1000*/);
+        this.f.getContentPane().add(this);
+
+
+        
+        this.f.setupFrame();
+    }
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        
+        
+    
+    }
+
+}
