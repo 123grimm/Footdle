@@ -1,0 +1,186 @@
+package footdle;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Stroke;
+
+import javax.swing.JLabel;
+
+
+public class Label extends JLabel {
+	
+	//Nicht zwingend notwendig
+	private static final long serialVersionUID = 1L;
+
+	public void paintComponent (Graphics g) {
+
+		
+		super.paintComponent(g);
+
+		
+		Graphics2D g2D = (Graphics2D)g;
+		
+		//Ist für Antialiasing zuständig
+		g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		Stroke stroke1 = new BasicStroke(4f); 
+		
+		
+		switch(Var.gameActive){
+		
+		//Öffnet TitleScreen
+		case 0:
+			
+			if(Var.i==2 && Var.j==1) {
+				Var.gameActive=4;
+			}
+			
+			//Ermöglicht erneute Eingabe bei falscher Eingabe mit zu vielen Buchstaben von t und m
+			if(Var.j>1 & Var.i>2) {
+				Var.j=0;
+				Var.i=0;
+			}
+			g.drawImage(Var.hintergrund, 200, 20, null); 
+			//g.drawImage(Var.fifakarte, 50, 200,300,500, null); 
+			
+			//Title usw...
+			g.setFont(getFont().deriveFont(Font.BOLD, 100F));
+			g.setColor(Color.BLACK);
+			g.drawString(Var.titleTxt,250 , 120);
+
+		
+		//Offnet Spiel
+		case 1:
+
+			
+			if(Var.gameOver == false && Var.fertigPt == false) {
+				
+				//Startet PlatformThread
+
+				
+				Var.fertigPt = true;
+				//System.out.println(Var.fertigPt);
+				
+			}else if(Var.gameOver == true) {
+				
+				Var.gameActive = 6;
+				
+			}
+
+
+			if(Var.buttonNumberGame==1) {
+				
+				//Pop-up Fenster fürs Leaven
+				g2D.setColor(Color.BLUE);
+				
+				g.setFont(getFont().deriveFont(Font.BOLD, 38F));
+				g2D.setStroke(new BasicStroke(3));
+				g.drawString(Var.gameQuestion, 840, 350);
+				g.drawString(Var.gameQuestion2, 840, 425);
+				
+				//Waagrechte Linie
+				g.drawLine(707, 550, 1193, 550);
+				
+				//Senkrechte Linie
+				g.drawLine(955, 553, 955, 693);
+				
+				//Auswahl Yes/No
+				g.drawString(Var.yes, 785, 640);
+				g.drawString(Var.no, 1050, 640);
+				
+				//Markiert Yes/No
+				switch(Var.buttonYN) {
+				
+				case 0:
+					
+					g.drawLine(785, 650, 862, 650);
+					//g.drawString("<",270 ,360);
+					//g.drawString(">",355 ,360);
+					
+					break;
+					
+				case 1:
+					
+					g.drawLine(1050, 650, 1107, 650);
+					//g.drawString("<",430 ,360);
+					//g.drawString(">",500 ,360);
+					
+					break;
+				
+				}
+				
+				//Macht Tranzparenz 
+				g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
+				
+				//Rundet Kanten von Rechteck
+				g2D.fillRoundRect(700, 200, 500, 500, 50, 50);
+				g2D.fillRoundRect(705, 205, 490, 490, 40, 40);
+			}
+			
+			break;
+			
+			
+		//Schließt alles
+		case 2: 
+			
+			    System.exit(0);
+				
+			break;
+
+		
+		//Öffnet ExitMenü
+		case 5: 
+			g.drawImage(Var.hintergrund, 200, 20, null); 
+			
+			//Title usw...
+			g.setFont(getFont().deriveFont(Font.BOLD, 100F));
+			g.setColor(Color.BLACK);
+			g.drawString(Var.titleTxt,250 , 120);
+			
+			//Pop-up Fenster fürs Leaven
+			g2D.setColor(Color.BLACK);
+				
+			g.setFont(getFont().deriveFont(Font.BOLD, 44F));
+			g2D.setStroke(new BasicStroke(3));
+			g.drawString(Var.exit, 915, 350);
+			g.drawString(Var.exit2, 893, 425);
+			
+			g.setFont(getFont().deriveFont(Font.BOLD, 38F));
+			//Waagrechte Linie
+			g.drawLine(707, 550, 1193, 550);
+			
+			//Senkrechte Linie
+			g.drawLine(955, 553, 955, 693);
+			
+			//Auswahl Yes/No
+			g.drawString(Var.yes, 785, 640);
+			g.drawString(Var.no, 1050, 640);
+				
+			//Markiert Yes/No
+			if(Var.buttonYN==0) {
+				g.drawLine(785, 650, 862, 650);
+				//g.drawString("<",270 ,360);
+				//g.drawString(">",355 ,360);
+			}else if(Var.buttonYN==1) {
+				g.drawLine(1050, 650, 1107, 650);
+				//g.drawString("<",430 ,360);
+				//g.drawString(">",500 ,360);
+			}
+				
+			//Macht Tranzparenz 
+			g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
+				
+			//Rundet Kanten von Rechteck
+			g2D.fillRoundRect(700, 200, 500, 500, 50, 50);
+			g2D.fillRoundRect(705, 205, 490, 490, 40, 40);
+			
+			break;
+
+		} repaint();
+	}
+}
