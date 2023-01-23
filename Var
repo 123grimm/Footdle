@@ -18,11 +18,7 @@ public class Var {
 	static int screenwidth = 1500, screenheight = 1500;
 
     static boolean huerde = false, kRechts = true, kLinks = false, gameOver = false, fertigPt = false;
-    
-    //PLatformen werden hier gespeichert
-    //static ArrayList<BufferedImage> platf = new ArrayList<>();
-	
-	//Variablen für TitleScreen:
+
     
 	//Erkennung des aktiven Bildschirms
 	static int gameActive = 0;
@@ -40,8 +36,8 @@ public class Var {
 
 	public Var() {
 		try {
-		hintergrund = ImageIO.read(new File("rsc/hintergund2.jpg"));
-		fifakarte = ImageIO.read(new File("rsc/fifakarte2.jpg"));
+		hintergrund = ImageIO.read(new File("rsc/hintergrundSpiel.jpg"));
+		//fifakarte = ImageIO.read(new File("rsc/totyfifakarte2.jpg"));
 		}catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Bilder konnten nicht geladen werden");
