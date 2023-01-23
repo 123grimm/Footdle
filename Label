@@ -46,30 +46,22 @@ public class Label extends JLabel {
 				Var.i=0;
 			}
 			g.drawImage(Var.hintergrund, 200, 20, null); 
-			//g.drawImage(Var.fifakarte, 50, 200,300,500, null); 
+			g.drawImage(Var.fifakarte, 50, 200,300,500, null); 
 			
 			//Title usw...
 			g.setFont(getFont().deriveFont(Font.BOLD, 100F));
-			g.setColor(Color.BLACK);
+			g.setColor(Color.WHITE);
 			g.drawString(Var.titleTxt,250 , 120);
 
 		
 		//Offnet Spiel
 		case 1:
-
-			
 			if(Var.gameOver == false && Var.fertigPt == false) {
-				
-				//Startet PlatformThread
 
-				
 				Var.fertigPt = true;
-				//System.out.println(Var.fertigPt);
 				
 			}else if(Var.gameOver == true) {
-				
 				Var.gameActive = 6;
-				
 			}
 
 
@@ -99,17 +91,11 @@ public class Label extends JLabel {
 				case 0:
 					
 					g.drawLine(785, 650, 862, 650);
-					//g.drawString("<",270 ,360);
-					//g.drawString(">",355 ,360);
-					
 					break;
 					
 				case 1:
 					
 					g.drawLine(1050, 650, 1107, 650);
-					//g.drawString("<",430 ,360);
-					//g.drawString(">",500 ,360);
-					
 					break;
 				
 				}
@@ -139,11 +125,11 @@ public class Label extends JLabel {
 			
 			//Title usw...
 			g.setFont(getFont().deriveFont(Font.BOLD, 100F));
-			g.setColor(Color.BLACK);
+			g.setColor(Color.WHITE);
 			g.drawString(Var.titleTxt,250 , 120);
 			
 			//Pop-up Fenster fürs Leaven
-			g2D.setColor(Color.BLACK);
+			g2D.setColor(Color.WHITE);
 				
 			g.setFont(getFont().deriveFont(Font.BOLD, 44F));
 			g2D.setStroke(new BasicStroke(3));
@@ -164,12 +150,8 @@ public class Label extends JLabel {
 			//Markiert Yes/No
 			if(Var.buttonYN==0) {
 				g.drawLine(785, 650, 862, 650);
-				//g.drawString("<",270 ,360);
-				//g.drawString(">",355 ,360);
 			}else if(Var.buttonYN==1) {
 				g.drawLine(1050, 650, 1107, 650);
-				//g.drawString("<",430 ,360);
-				//g.drawString(">",500 ,360);
 			}
 				
 			//Macht Tranzparenz 
