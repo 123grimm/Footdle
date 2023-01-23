@@ -1,0 +1,167 @@
+package footdle;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+//Überwacht Bewegungszustand der notwendigen Tasten
+public class TastaturEingabe implements KeyListener {
+
+
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+		if(e.getKeyCode()==KeyEvent.VK_M) {
+			
+			Var.i+=1;
+			
+		}else if(e.getKeyCode()==KeyEvent.VK_T) {
+			
+        	Var.j+=1;
+        	
+        }
+		
+		//Für Auswahl des aktiven Labels
+		switch(Var.gameActive) {
+		
+		//TitleScreen
+		case 0:
+
+			
+			//Überprüft ob Taste ausgewählt
+			if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+				
+				//music.play(Sounds.sound1);
+				if(Var.buttonNumber==0) {
+					System.out.println("Spiel wird gestartet");
+					Var.gameActive=1;
+				} else if(Var.buttonNumber==1) {
+					System.out.println("Spiel wird geschlossen");
+					Var.gameActive=2;
+				} else if(Var.buttonNumber==2) {
+					System.out.println("Settings werden geöffnet");
+					Var.gameActive=3;
+				}
+			}
+			
+			if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+				
+				//Wenn Escape im Menüscreen gedrückt
+				Var.gameActive=5;
+				
+			}
+			
+			break;
+		
+		//SpielScreen
+		case 1:
+			
+
+			
+			
+			if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+				
+				System.out.println("Escape gedrückt");
+				Var.buttonNumberGame=1;
+				
+			//Wählt yes oder no aus
+			}else if(e.getKeyCode()==KeyEvent.VK_ENTER && Var.buttonNumberGame==1) {   
+	            if(Var.buttonYN==0) {
+	            	System.out.println("YES ausgewählt");
+	            	Var.gameActive=0;
+	            	Var.buttonNumberGame=0;
+	            }else if(Var.buttonYN==1) {
+	            	System.out.println("NO ausgewählt");
+	            	Var.buttonNumberGame=0;
+	            }
+	        }
+
+			
+			//Markiert Yes
+			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A) {
+				
+				System.out.println("Taste nach links gedrückt");
+				Var.buttonYN++;
+				//für einen "Durchlauf" bei Markierung
+				if(Var.buttonYN>1) {
+					Var.buttonYN=0;
+				}
+			}
+			
+			//Markiert No
+            if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D) {
+            	
+            	System.out.println("Taste nach rechts gedrückt");
+            	Var.buttonYN--;
+            	//für einen "Durchlauf" bei Markierung
+            	if(Var.buttonYN<0) {
+            		Var.buttonYN=1;
+            	}
+			}
+            
+            break;
+           
+
+		//EscapeScreen 
+		case 5:
+			
+			//Markiert Yes
+			if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A) {
+				
+				System.out.println("Taste nach links gedrückt");
+				Var.buttonYN++;
+				//für einen "Durchlauf" bei Markierung
+				if(Var.buttonYN>1) {
+					Var.buttonYN=0;
+				}
+			}
+			
+			//Markiert No
+            if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D) {
+            	
+            	System.out.println("Taste nach rechts gedrückt");
+            	Var.buttonYN--;
+            	//für einen "Durchlauf" bei Markierung
+            	if(Var.buttonYN<0) {
+            		Var.buttonYN=1;
+            	}
+			}
+            
+			if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+	            if(Var.buttonYN==0) {
+	            	System.out.println("YES ausgewählt");
+	            	Var.gameActive=2;
+	            	Var.buttonNumberGame=0;
+	            }else if(Var.buttonYN==1) {
+	            	System.out.println("NO ausgewählt");
+	            	Var.buttonNumberGame=0;
+	            	Var.gameActive=0;
+	            }
+	        }
+			
+			break;
+			
+		case 6:
+			
+			//Geht zum Startmenü zurück
+			if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+				
+				Var.gameActive=0;
+				System.out.println("Zurück zum Hauptmenü");
+				
+			}
+			break;
+
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+    }	
+}
