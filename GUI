@@ -1,26 +1,43 @@
-
 package footdle;
 import javax.swing.*;
+
+import footdle.Label;
+import footdle.TastaturEingabe;
+import footdle.Var;
+
 import java.awt.*;
 
-public class GUI extends JPanel {
+public class GUI extends JFrame {
 
     private Frame f;
 
     public GUI() {
-        this.f = new Frame("Footdle"/*, 0, 0, 1500, 1000*/);
+   /*     this.f = new Frame("Footdle");
         this.f.getContentPane().add(this);
-
-
         
-        this.f.setupFrame();
+        this.f.setupFrame();*/
+		//Erzeugt Bild (JFrame allg.)
+		Var.jf1 = new JFrame();
+		Var.jf1.setSize(Var.screenwidth, Var.screenheight);
+		Var.jf1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Var.jf1.setLocationRelativeTo(null);
+		Var.jf1.setLayout(null);
+		Var.jf1.setTitle("FOOTDLE");
+		Var.jf1.setResizable(false);
+		Var.jf1.addKeyListener(new TastaturEingabe());
+		Var.jf1.requestFocus();
+		
+		//Für Vollbild zuständig
+		Var.jf1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		Var.jf1.setUndecorated(true);
+		Var.jf1.setVisible(true);
+		
+		Var.lbl = new Label();
+		Var.lbl.setBounds(0,0, Var.screenwidth, Var.screenheight);
+		Var.lbl.setVisible(true);
+		Var.jf1.add(Var.lbl);
+		
     }
 
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        
-        
-    
-    }
 
 }
