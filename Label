@@ -11,6 +11,8 @@ import java.awt.Stroke;
 
 import javax.swing.JLabel;
 
+import footdle.Var;
+
 
 public class Label extends JLabel {
 	
@@ -45,13 +47,57 @@ public class Label extends JLabel {
 				Var.j=0;
 				Var.i=0;
 			}
-			g.drawImage(Var.hintergrund, 200, 20, null); 
-			g.drawImage(Var.fifakarte, 50, 200,300,500, null); 
+			g.drawImage(Var.hintergrundHome, 70, 20,1400,830, null); 
+			//g.drawImage(Var.fifakarte, 50, 200,300,500, null); 
 			
 			//Title usw...
 			g.setFont(getFont().deriveFont(Font.BOLD, 100F));
 			g.setColor(Color.WHITE);
-			g.drawString(Var.titleTxt,250 , 120);
+			g.drawString(Var.titleTxt,250 , 220);
+			
+			//Spiel starten
+			g.setFont(getFont().deriveFont(Font.BOLD, 46F));
+			g.drawString(Var.start1, 610 , 425);
+			
+			//Spiel schließen
+			g.setFont(getFont().deriveFont(Font.BOLD, 42F));
+			g.drawString(Var.close, 600 , 490);
+			
+			//Regeln öffnen
+			g.setFont(getFont().deriveFont(Font.BOLD, 42F));
+			g.drawString(Var.regeln, 570 , 555);
+			
+			
+			g.setFont(getFont().deriveFont(Font.BOLD, 42F));
+			
+			//Prüft ob welcher Button gedrückt und markiert die Auswahl#
+			switch(Var.buttonNumber) {
+			
+			case 0:
+				
+				g.setFont(getFont().deriveFont(Font.BOLD, 42F));
+				g.drawString("<",570, 425);
+				g.drawString(">", 900,  425);
+				
+				break;
+				
+			case 1:
+				
+				g.drawString("<", 560,  490);
+				g.drawString(">", 925, 490);
+				
+				break;
+				
+			case 2:
+				
+				g.drawString("<", 530,  555);
+				g.drawString(">", 950,  555);
+				
+				break;
+			
+			}
+			
+			break;
 
 		
 		//Offnet Spiel
@@ -64,11 +110,11 @@ public class Label extends JLabel {
 				Var.gameActive = 6;
 			}
 
-
+			g.drawImage(Var.hintergrundHome, 70, 20,1400,830, null); 
 			if(Var.buttonNumberGame==1) {
 				
 				//Pop-up Fenster fürs Leaven
-				g2D.setColor(Color.BLUE);
+				g2D.setColor(Color.WHITE);
 				
 				g.setFont(getFont().deriveFont(Font.BOLD, 38F));
 				g2D.setStroke(new BasicStroke(3));
@@ -117,19 +163,25 @@ public class Label extends JLabel {
 			    System.exit(0);
 				
 			break;
+			
+			//öffnet Regeln	
+			case 3: 
+				g.drawImage(Var.hintergrundHome, 70, 20,1400,830, null); 
+				
+				g.setFont(getFont().deriveFont(Font.BOLD, 50F));
+				g.setColor(Color.BLUE);
+								
+				//Macht Tranzparenz 
+				g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
 
+				
+			break;
 		
 		//Öffnet ExitMenü
 		case 5: 
-			g.drawImage(Var.hintergrund, 200, 20, null); 
-			
-			//Title usw...
-			g.setFont(getFont().deriveFont(Font.BOLD, 100F));
-			g.setColor(Color.WHITE);
-			g.drawString(Var.titleTxt,250 , 120);
 			
 			//Pop-up Fenster fürs Leaven
-			g2D.setColor(Color.WHITE);
+			g2D.setColor(Color.BLACK);
 				
 			g.setFont(getFont().deriveFont(Font.BOLD, 44F));
 			g2D.setStroke(new BasicStroke(3));
