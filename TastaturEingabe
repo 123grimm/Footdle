@@ -3,8 +3,12 @@ package footdle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
+
 //Überwacht Bewegungszustand der notwendigen Tasten
 public class TastaturEingabe implements KeyListener {
+
+
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -25,8 +29,32 @@ public class TastaturEingabe implements KeyListener {
 		
 		//SpielScreen
 		case 0:
+			
+			
+			if(e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W) {
+				
 
-			/*
+				
+				System.out.println("Taste nach oben oder W gedrückt");
+				Var.buttonNumber--;
+				
+				//Bewirkt flüssigeres Bewegen der Auswahl 
+				if(Var.buttonNumber<0) {
+					Var.buttonNumber=2;
+				}
+			} 
+			
+			if(e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_S) {
+				
+				System.out.println("Taste nach unten oder S gedrückt");
+				Var.buttonNumber++;
+				
+				if(Var.buttonNumber>2) {
+					Var.buttonNumber=0;
+				}
+			}
+			
+			
 			//Überprüft ob Taste ausgewählt
 			if(e.getKeyCode()==KeyEvent.VK_ENTER) {
 				
@@ -37,7 +65,7 @@ public class TastaturEingabe implements KeyListener {
 					System.out.println("Spiel wird geschlossen");
 					Var.gameActive=2;
 				}
-			}*/
+			}
 			
 			if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
 				
@@ -48,8 +76,61 @@ public class TastaturEingabe implements KeyListener {
 			
 			break;
 
-           
+		//SpielScreen
+		case 1:
+			
+			if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+				System.out.println("Escape gedrückt");
+					Var.buttonNumberGame=1;
+					
+				//Wählt yes oder no aus
+				}else if(e.getKeyCode()==KeyEvent.VK_ENTER && Var.buttonNumberGame==1) {   
+		            if(Var.buttonYN==0) {
+		            	System.out.println("YES ausgewählt");
+		            	Var.gameActive=0;
+		            	Var.buttonNumberGame=0;
+		            }else if(Var.buttonYN==1) {
+		            	System.out.println("NO ausgewählt");
+		            	Var.buttonNumberGame=0;
+		            }
+		        }
 
+				//Markiert Yes
+				if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A) {
+					
+					System.out.println("Taste nach links gedrückt");
+					Var.buttonYN++;
+					//für einen "Durchlauf" bei Markierung
+					if(Var.buttonYN>1) {
+						Var.buttonYN=0;
+					}
+				}
+				
+				//Markiert No
+	            if(e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D) {
+	            	
+	            	System.out.println("Taste nach rechts gedrückt");
+	            	Var.buttonYN--;
+	            	//für einen "Durchlauf" bei Markierung
+	            	if(Var.buttonYN<0) {
+	            		Var.buttonYN=1;
+	            	}
+				}
+	            
+	            break;   
+	            
+	            //Regeln 
+	    		case 3:
+
+	    			//Geht zum Startmenü zurück
+	    			if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+	    				
+	    				Var.gameActive=0;
+	    				System.out.println("Regeln verlassen");
+	    			}
+	    			
+	    			break;
+	    			
 		//EscapeScreen 
 		case 5:
 			
@@ -88,7 +169,17 @@ public class TastaturEingabe implements KeyListener {
 	        }
 			
 			break;
-
+			
+		case 6:
+			
+			//Geht zum Startmenü zurück
+			if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+				
+				Var.gameActive=0;
+				System.out.println("Zurück zum Hauptmenü");
+				
+			}
+			break;
 
 		}
 	}
