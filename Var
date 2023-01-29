@@ -24,10 +24,10 @@ public class Var {
 	static int gameActive = 0;
 	//Erkennung für aktiven Button
 	static int buttonNumber = 0,  buttonNumberGame = 0, buttonYN = 0, buttonNS = 0;
-	static String titleTxt = "FOOTDLE EM-Edition";
+	static String titleTxt = "FOOTDLE EM-Edition", start1 = "Spiel starten", close = "Spiel schließen", regeln = "Regeln anschauen";
 	static String gameQuestion = "Do you realy", gameQuestion2 = "want to exit?", yes = "YES", no = "NO", exit = "Exit", exit2 = "Game?";
 
-	static BufferedImage hintergrund, fifakarte;
+	static BufferedImage hintergrundHome, fifakarte;
 	
 	//Variablen für Sonstiges:
 	
@@ -36,7 +36,7 @@ public class Var {
 
 	public Var() {
 		try {
-		hintergrund = ImageIO.read(new File("rsc/hintergrundSpiel.jpg"));
+		hintergrundHome = ImageIO.read(new File("rsc/hintergrundHome.png"));
 		//fifakarte = ImageIO.read(new File("rsc/totyfifakarte2.jpg"));
 		}catch (IOException e) {
 			e.printStackTrace();
