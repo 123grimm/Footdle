@@ -1,5 +1,20 @@
 package footdle;
 
+import java.sql.Statement;
+
 public class Connection {
+	public Connection() {
+		
+	}
+
+	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Statement createStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
