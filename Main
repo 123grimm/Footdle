@@ -8,9 +8,23 @@ public class Main {
 		new GUI();
 		new Label();
 		new TastaturEingabe();
-		
+		/*
 		Database database = new Database();
 		Connection connection = database.getConnection();
+		
+		System.out.println(ld());
+		
+		if(!database.tableExists("vocab_set")) {
+			
+			String createTableSQL = "CREATE TABLE vocab_set ("
+			+ "id INT AUTO_INCREMENT PRIMARY KEY, "
+			+ "word VARCHAR(255) NOT NULL, "
+			+ "translation VARCHAR(255) NOT NULL"
+			+ ");";
+			
+		}else {
+			System.err.println("Table already exists!");
+		}*/
 	}
 
 }
