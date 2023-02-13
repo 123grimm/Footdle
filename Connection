@@ -17,4 +17,9 @@ public class Connection {
 		return null;
 	}
 
+	public Object getMetaData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
