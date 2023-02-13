@@ -1,0 +1,33 @@
+package footdle;
+
+import java.io.*;
+import java.net.*;
+public class Network {
+    private ServerSocket server;
+    private Socket client;
+    private BufferedReader in;
+    private PrintWriter out;
+    public Network() {
+        try {
+            server = new ServerSocket(4444);
+            System.out.println("Waiting for a client to connect...");
+            client = server.accept();
+            System.out.println("Client connected");
+            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            out = new PrintWriter(client.getOutputStream(), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void sendMessage(String message) {
+        out.println(message);
+    }
+    public String receiveMessage() {
+        try {
+            return in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
