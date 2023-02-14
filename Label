@@ -15,7 +15,8 @@ import footdle.Var;
 
 
 public class Label extends JLabel {
-	
+    private Button verlassen;
+    
 	//Nicht zwingend notwendig
 	private static final long serialVersionUID = 1L;
 
@@ -110,7 +111,17 @@ public class Label extends JLabel {
 				Var.gameActive = 6;
 			}
 
-			g.drawImage(Var.hintergrundHome, 70, 20,1400,830, null); 
+			g.drawImage(Var.hintergrundSpiel, 70, 20,700,415, null); 
+			g.drawImage(Var.ersatzbank, 70, 425,700,415, null);
+
+			
+			g.setFont(getFont().deriveFont(Font.BOLD, 46F));
+			g.setColor(Color.BLACK);
+			g.drawString("Guess Player:", 900 , 100);
+			
+			
+			
+ 
 			if(Var.buttonNumberGame==1) {
 				
 				//Pop-up Fenster fürs Leaven
@@ -164,15 +175,20 @@ public class Label extends JLabel {
 				
 			break;
 			
-			//öffnet Regeln	
-			case 3: 
-				g.drawImage(Var.hintergrundHome, 70, 20,1400,830, null); 
+		//öffnet Regeln	
+		case 3: 
+			g.drawImage(Var.hintergrundHome, 70, 20,1400,830, null); 
+			
+			g.setFont(getFont().deriveFont(Font.BOLD, 90F));
+			g.setColor(Color.WHITE);
+			g.drawString("Regeln:",600 , 200);
 				
-				g.setFont(getFont().deriveFont(Font.BOLD, 50F));
-				g.setColor(Color.BLUE);
+
+			g.setFont(getFont().deriveFont(Font.BOLD, 46F));
+			g.drawString("Regeln in Bearbeitung...", 500 , 425);
 								
-				//Macht Tranzparenz 
-				g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
+			//Macht Tranzparenz 
+			g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
 
 				
 			break;
