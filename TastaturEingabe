@@ -64,6 +64,9 @@ public class TastaturEingabe implements KeyListener {
 				} else if(Var.buttonNumber==1) {
 					System.out.println("Spiel wird geschlossen");
 					Var.gameActive=2;
+				}else if(Var.buttonNumber==2) {
+					System.out.println("Regeln werden geöffnet");
+					Var.gameActive=3;
 				}
 			}
 			
@@ -119,6 +122,7 @@ public class TastaturEingabe implements KeyListener {
 	            
 	            break;   
 	            
+	            
 	            //Regeln 
 	    		case 3:
 
@@ -130,6 +134,7 @@ public class TastaturEingabe implements KeyListener {
 	    			}
 	    			
 	    			break;
+	    			
 	    			
 		//EscapeScreen 
 		case 5:
