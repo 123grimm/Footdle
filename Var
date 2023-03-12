@@ -32,7 +32,8 @@ public class Var {
 	//Variablen für Sonstiges:
 	
 	static int i=0, j=0;
-	
+
+
 
 	public Var() {
 		try {
