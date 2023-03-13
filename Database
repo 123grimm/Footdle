@@ -5,20 +5,31 @@ import java.util.ArrayList;
 
 
 public class Database {
-    private static Connection connection;
-    private static final String URL = "jdbc:mysql://localhost:3306/test";
+    
+	private static Connection connection;
+    private static final String URL = "jdbc:mysql://localhost:3306/spieler";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     
     public Database() {
-        try {
+    	getConnection();
+    }
+    
+    public void getConnection() {
+        connection = null;
+    	try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             System.out.println("Connected to database");
         } catch (SQLException e) {
             System.err.println("Error connecting to database: " + e.getMessage());
         }
     }
-    public static Connection getConnection() {
+    
+    
+    
+    
+    
+   /* public static Connection getConnection() {
         return connection;
     }
     public static void closeConnection() {
@@ -28,7 +39,7 @@ public class Database {
         } catch (SQLException e) {
             System.err.println("Error closing connection to database: " + e.getMessage());
         }
-    }
+    } */
     public void close() {
         try {
             connection.close();
