@@ -27,7 +27,7 @@ public class Var {
 	static String titleTxt = "FOOTDLE EM-Edition", start1 = "Spiel starten", close = "Spiel schließen", regeln = "Regeln anschauen";
 	static String gameQuestion = "Do you realy", gameQuestion2 = "want to exit?", yes = "YES", no = "NO", exit = "Exit", exit2 = "Game?";
 
-	static BufferedImage hintergrundHome, hintergrundSpiel, ersatzbank;
+	static BufferedImage hintergrundHome, hintergrundSpiel, ersatzbank, deutschlandflagge;
 	
 	//Variablen für Sonstiges:
 	
@@ -37,13 +37,13 @@ public class Var {
 
 	public Var() {
 		try {
-		hintergrundHome = ImageIO.read(new File("rsc/hintergrundHome.jpg"));
+		hintergrundHome = ImageIO.read(new File("rsc/hintergrundHome.png"));
 		hintergrundSpiel = ImageIO.read(new File("rsc/hintergrundSpiel.jpg"));
-		ersatzbank = ImageIO.read(new File("rsc/ersatzbank.jpg"));
+		//ersatzbank = ImageIO.read(new File("rsc/ersatzbank.jpg"));
+		deutschlandflagge = ImageIO.read(new File("rsc/Deutschlandflagge.jpg"));
 		}catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Bilder konnten nicht geladen werden");
 		}
 		}
 }
-
