@@ -15,7 +15,7 @@ import footdle.Var;
 
 
 public class Label extends JLabel {
-    private Button verlassen;
+    //private Button verlassen;
     
 	//Nicht zwingend notwendig
 	private static final long serialVersionUID = 1L;
@@ -112,20 +112,26 @@ public class Label extends JLabel {
 			}
 
 			g.drawImage(Var.hintergrundSpiel, 70, 20,700,415, null); 
-			g.drawImage(Var.ersatzbank, 70, 425,700,415, null);
-
+			//g.drawImage(Var.ersatzbank, 70, 425,700,415, null);
+			g.drawImage(Var.deutschlandflagge, 130, 150,95,120, null);
+			g.drawImage(Var.deutschlandflagge, 615, 150,95,120, null);
+			g.drawImage(Var.deutschlandflagge, 330, 170,40,40, null);
 			
 			g.setFont(getFont().deriveFont(Font.BOLD, 46F));
 			g.setColor(Color.BLACK);
-			g.drawString("Guess Player:", 900 , 100);
+			g.drawString("Falsch geratene Spieler:", 900 , 100);
+			g.drawString("Name", 900 , 200);
+			g.drawString("Position", 1200 , 200);
 			
-			
+			g.setFont(getFont().deriveFont(Font.BOLD, 46F));
+			g.setColor(Color.BLACK);
+			g.drawString("Eingabe:", 200 , 600);
 			
  
 			if(Var.buttonNumberGame==1) {
 				
 				//Pop-up Fenster fürs Leaven
-				g2D.setColor(Color.WHITE);
+				g2D.setColor(Color.BLACK);
 				
 				g.setFont(getFont().deriveFont(Font.BOLD, 38F));
 				g2D.setStroke(new BasicStroke(3));
