@@ -240,3 +240,4 @@ public class Label extends JLabel {
 		} repaint();
 	}
 }
+
