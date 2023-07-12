@@ -1,131 +1,150 @@
 package footdle;
 
-import java.sql.*;
-import java.util.ArrayList;
+ 
+
+    import java.sql.*;
+    import java.util.ArrayList;
+
+ 
 
 
-public class Database {
-    
-	private static Connection connection;
-    private static final String URL = "jdbc:mysql://localhost:3306/spieler";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "";
-    
-    public Database() {
-    	getConnection();
-    }
-    
-    public void getConnection() {
-        connection = null;
-    	try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println("Connected to database");
-        } catch (SQLException e) {
-            System.err.println("Error connecting to database: " + e.getMessage());
+    public class Database {
+
+        private Connection connection;
+        private final String URL = "jdbc:mysql://localhost:3306/spieler";
+        private final String USERNAME = "root";
+        private final String PASSWORD = "";
+
+        public Database() {
+            getConnection();
         }
-    }
-    
-    
-    
-    
-    
-   /* public static Connection getConnection() {
-        return connection;
-    }
-    public static void closeConnection() {
-        try {
-            connection.close();
-            System.out.println("Connection to database closed");
-        } catch (SQLException e) {
-            System.err.println("Error closing connection to database: " + e.getMessage());
-        }
-    } */
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void insert(String table, String columns, String values) {
-        String sql = "INSERT INTO " + table + "(" + columns + ") VALUES(" + values + ")";
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public ResultSet select(String table, String columns, String where) {
-        String sql = "SELECT " + columns + " FROM " + table;
-        if (where != null) {
-            sql += " WHERE " + where;
-        }
-        try {
-            Statement statement = connection.createStatement();
-            return statement.executeQuery(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public ArrayList<ArrayList<String>> executeQuery(String query) {
-        ArrayList<ArrayList<String>> result = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-            while (rs.next()) {
-                ArrayList<String> row = new ArrayList<>();
-                for (int i = 1; i <= columnCount; i++) {
-                    row.add(rs.getString(i));
-                }
-                result.add(row);
+
+        public void getConnection() {
+            connection = null;
+            try {
+                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                System.out.println("Connected to database");
+            } catch (SQLException e) {
+                System.err.println("Error connecting to database: " + e.getMessage());
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return result;
-    }
-    public void update(String table, String set, String where) {
-        String sql = "UPDATE " + table + " SET " + set;
-        if (where != null) {
-            sql += " WHERE " + where;
-        }
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void delete(String table, String where) {
-        String sql = "DELETE FROM " + table;
-        if (where != null) {
-            sql += " WHERE " + where;
-        }
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public void executeUpdate(String sql) {
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public boolean tableExists(String tableName) {
-        try (ResultSet resultSet = connection.getMetaData().getTables(null, null, tableName, null)) {
-            return resultSet.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-}
+
+
+        public boolean checkEingabe (String eingabe) {
+
+            ResultSet r =this.select("fußballspieler", "COUNT(*) AS recordCount", "Name =\""+eingabe+"\"");
+            int count=0;
+            try {
+                r.next();
+                 count = r.getInt("recordCount");
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return false;
+            }
 
 
 
+            return count>0;
+
+        }
+
+
+       /* public static Connection getConnection() {
+            return connection;
+        }
+        public static void closeConnection() {
+            try {
+                connection.close();
+                System.out.println("Connection to database closed");
+            } catch (SQLException e) {
+                System.err.println("Error closing connection to database: " + e.getMessage());
+            }
+        } */
+        public void close() {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public void insert(String table, String columns, String values) {
+            String sql = "INSERT INTO " + table + "(" + columns + ") VALUES(" + values + ")";
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public ResultSet select(String table, String columns, String where) {
+            String sql = "SELECT " + columns + " FROM " + table;
+            if (where != null) {
+                sql += " WHERE " + where;
+            }
+            System.out.println(sql);
+            try {
+                Statement statement = connection.createStatement();
+                return statement.executeQuery(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        public ArrayList<ArrayList<String>> executeQuery(String query) {
+            ArrayList<ArrayList<String>> result = new ArrayList<>();
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet rs = statement.executeQuery(query);
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                while (rs.next()) {
+                    ArrayList<String> row = new ArrayList<>();
+                    for (int i = 1; i <= columnCount; i++) {
+                        row.add(rs.getString(i));
+                    }
+                    result.add(row);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+        public void update(String table, String set, String where) {
+            String sql = "UPDATE " + table + " SET " + set;
+            if (where != null) {
+                sql += " WHERE " + where;
+            }
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public void delete(String table, String where) {
+            String sql = "DELETE FROM " + table;
+            if (where != null) {
+                sql += " WHERE " + where;
+            }
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public void executeUpdate(String sql) {
+            try {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public boolean tableExists(String tableName) {
+            try (ResultSet resultSet = connection.getMetaData().getTables(null, null, tableName, null)) {
+                return resultSet.next();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
