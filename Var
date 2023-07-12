@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 public class Var {
 	
 	static JFrame jf1;
-	static Label lbl;
 
     
 	static int screenwidth = 1500, screenheight = 1500;
@@ -37,10 +36,10 @@ public class Var {
 
 	public Var() {
 		try {
-		hintergrundHome = ImageIO.read(new File("rsc/hintergrundHome.png"));
+		hintergrundHome = ImageIO.read(new File("rsc/hintergrundHome.jpg"));
 		hintergrundSpiel = ImageIO.read(new File("rsc/hintergrundSpiel.jpg"));
 		//ersatzbank = ImageIO.read(new File("rsc/ersatzbank.jpg"));
-		deutschlandflagge = ImageIO.read(new File("rsc/Deutschlandflagge.jpg"));
+		deutschlandflagge = ImageIO.read(new File("rsc/Deutschlandflagge.png"));
 		}catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Bilder konnten nicht geladen werden");
