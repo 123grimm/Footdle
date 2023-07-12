@@ -1,46 +1,177 @@
 package footdle;
-import javax.swing.*;
 
-import footdle.Label;
+import javax.swing.*;
 import footdle.TastaturEingabe;
 import footdle.Var;
-
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GUI extends JFrame {
+
+public class GUI implements ActionListener{
 
     private Frame f;
+    TextField t1;
+    TextField tf;
+    Button b;
+
+    private JFrame startscreen;
+    private JFrame regelscreen;
+    private JFrame spielscreen;
+
+    private JLabel regeln;
+    private JLabel ergebnis;
+
+    private JButton spielstarten,spielschliesen,spielregeln,zurueck,zurueck2,check;
+
+    private BackgroundPanel backPanelHome;
+    private BackgroundPanel backPanelSpiel;
+
+    private JTextField spielerEingabe;
+
+    private Database db;
+
+    int anzahlEingabe;
+
+
+ 
 
     public GUI() {
-   /*     this.f = new Frame("Footdle");
-        this.f.getContentPane().add(this);
-        
-        this.f.setupFrame();*/
-		//Erzeugt Bild (JFrame allg.)
-		Var.jf1 = new JFrame();
-		Var.jf1.setSize(Var.screenwidth, Var.screenheight);
-		Var.jf1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Var.jf1.setLocationRelativeTo(null);
-		Var.jf1.setLayout(null);
-		Var.jf1.setTitle("FOOTDLE");
-		Var.jf1.setResizable(false);
-		Var.jf1.addKeyListener(new TastaturEingabe());
-		Var.jf1.requestFocus();
-		
-		//Für Vollbild zuständig
-		Var.jf1.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		Var.jf1.setUndecorated(true);
-		Var.jf1.setVisible(true);
-		
-		Var.lbl = new Label();
-		Var.lbl.setBounds(0,0, Var.screenwidth, Var.screenheight);
-		Var.lbl.setVisible(true);
-		Var.jf1.add(Var.lbl);
-		
+        //Erzeugt Bild (JFrame allg.)
+        this.db = new Database();
+        Var data = new Var();
+        this.backPanelHome =new BackgroundPanel(data.hintergrundSpiel);
+        this.backPanelSpiel =new BackgroundPanel(data.hintergrundSpiel);
+
+        this.startscreen=new JFrame("Startscreen");
+        this.startscreen.setContentPane(this.backPanelHome);
+        this.startscreen.setSize(Var.screenwidth, Var.screenheight);
+
+        this.spielscreen=new JFrame("Spielscreen");
+        this.spielscreen.setContentPane(this.backPanelSpiel);
+        this.spielscreen.setSize(Var.screenwidth, Var.screenheight);
+
+        this.startscreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.startscreen.setLocationRelativeTo(null);
+        this.startscreen.setLayout(null);
+
+
+        this.startscreen.setResizable(false);
+        this.startscreen.setVisible(true);
+        this.spielstarten=new JButton("Spiel starten");    
+
+ 
+
+         // set the position for the button in frame   
+        this.spielstarten.setBounds(100,200,150,30);   
+        this.spielstarten.addActionListener(this);
+        this.startscreen.add(this.spielstarten);
+        this.spielschliesen=new JButton("Spiel schliesen");    
+
+
+        // set the position for the button in frame   
+
+        this.spielschliesen.setBounds(300,200,150,30);   
+        this.spielschliesen.addActionListener(this);
+        this.startscreen.add(this.spielschliesen);
+
+        this.spielregeln=new JButton("Regeln");    
+
+
+
+    // set the position for the button in frame   
+    this.spielregeln.setBounds(500,200,150,30);   
+    this.spielregeln.addActionListener(this);
+    this.startscreen.add(this.spielregeln);
+    this.regelscreen=new JFrame("Spielregeln");
+    this.regeln=new JLabel("Regeln in Bearbeitung");    
+
+ 
+    // set the position for the button in frame   
+    this.regeln.setBounds(500,200,150,30);   
+    this.regelscreen.add(this.regeln);
+    this.regelscreen.setSize(Var.screenwidth, Var.screenheight);
+    this.regelscreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.regelscreen.setLocationRelativeTo(null);
+    this.regelscreen.setLayout(null);
+
+    this.regelscreen.setResizable(false);
+
+    this.zurueck=new JButton("Zurück");
+    this.zurueck.setBounds(500,200,150,30);   
+    this.zurueck.addActionListener(this);
+    this.spielscreen.add(this.zurueck);
+
+    this.zurueck2=new JButton("Zurück");
+    this.zurueck2.setBounds(100,100,150,30);   
+    this.zurueck2.addActionListener(this);
+    this.regelscreen.add(this.zurueck2);
+
+    this.spielerEingabe=new JTextField("Spieler eingeben");  
+    this.spielerEingabe.setBounds(100,100,150,30);
+    this.spielscreen.add(this.spielerEingabe);
+
+    this.check=new JButton("Check");
+    this.check.setBounds(500,200,150,30);   
+    this.check.addActionListener(this);
+    this.spielscreen.add(this.check);
+
+    this.ergebnis=new JLabel("");    
+    this.ergebnis.setBounds(500,200,150,30);   
+    this.spielscreen.add(this.ergebnis);
+
     }
 
+ 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
 
+        String button=e.getActionCommand();
+        System.out.println(button);
+        if(button.equals("Regeln"))
+        {
+           this.startscreen.setVisible(false);
+           this.regelscreen.setVisible(true);
+
+        }
+        if(button.equals("Spiel schliesen"))
+        {
+            System.exit(0);
+        }
+        if(button.equals("Spiel starten"))
+        {
+            this.anzahlEingabe=0;
+            this.startscreen.setVisible(false);
+            this.spielscreen.setVisible(true);
+            this.spielerEingabe.setEnabled(true);
+            this.check.setEnabled(true);
+    }
+        if(button.equals("Zurück")) {
+            this.spielscreen.setVisible(false);
+            this.startscreen.setVisible(true);
+            this.regelscreen.setVisible(false);
+            this.spielerEingabe.setText("Spieler eingeben");
+            this.ergebnis.setText("");
+        }
+        if(button.equals("Check")) {
+            this.anzahlEingabe++;
+            boolean eingabeResult= this.db.checkEingabe(this.spielerEingabe.getText());
+
+            if(eingabeResult) {
+                this.ergebnis.setText("Richtig");
+            }
+            else {
+                this.ergebnis.setText("Falsch");
+            }
+
+            if(anzahlEingabe>=10) {
+                this.spielerEingabe.setEnabled(false);
+                this.check.setEnabled(false);
+                this.ergebnis.setText("Versuche abgelaufen");
+            }
+
+        }
+    }
 }
-
-
