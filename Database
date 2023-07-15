@@ -30,22 +30,73 @@ package footdle;
         }
 
 
-        public boolean checkEingabe (String eingabe) {
+        public String checkEingabe (String eingabe,String[]richtigesErgebnis) {
 
-            ResultSet r =this.select("fußballspieler", "COUNT(*) AS recordCount", "Name =\""+eingabe+"\"");
-            int count=0;
+            if(eingabe.equals(richtigesErgebnis[0])) {
+                return "r";
+            }
+
+            ResultSet r =this.select("fußballspieler", "Position", "Name =\""+eingabe+"\"");
+            String eingabePosition="";
             try {
                 r.next();
-                 count = r.getInt("recordCount");
+                 eingabePosition = r.getString("Position");
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                return false;
+                return "f";
             }
 
 
 
-            return count>0;
+        if(eingabePosition.equals(richtigesErgebnis[1])) {
+
+
+            return eingabePosition;
+        }
+        else {
+
+            return "f";
+        }
+
+        }
+        public String[] drawRandom() {
+
+
+            ResultSet r =this.select("fußballspieler", "COUNT(*) AS recordCount", null);
+            int max=0;
+            try{
+            r.next();
+            max=r.getInt("recordCount");
+
+             r =this.select("fußballspieler", "Name,Position",null);
+            }catch(SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            int position=(int)(Math.random()*max);
+
+
+            try {
+            r.next();
+            for(int i=0;i<max;i++) {
+
+                if(i==position) {
+                    String[]ergebnis=new String[2];
+
+                    ergebnis[0]= r.getString("Name");
+                    ergebnis[1]= r.getString("Position");
+
+                    return ergebnis;
+                }
+                r.next();
+            }
+            }catch(SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+
+            }
+            return new String[2];
 
         }
 
@@ -61,6 +112,10 @@ package footdle;
                 System.err.println("Error closing connection to database: " + e.getMessage());
             }
         } */
+        
+        
+        
+        
         public void close() {
             try {
                 connection.close();
@@ -68,8 +123,8 @@ package footdle;
                 e.printStackTrace();
             }
         }
-        public void insert(String table, String columns, String values) {
-            String sql = "INSERT INTO " + table + "(" + columns + ") VALUES(" + values + ")";
+        public void insert(String table, String values) {
+            String sql = "INSERT INTO " + table + " VALUES(" + values + ")";
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(sql);
             } catch (SQLException e) {
@@ -147,4 +202,19 @@ package footdle;
                 return false;
             }
         }
+        public void createDB() {
+            String sql1 = "CREATE TABLE fußballspieler("
+                    + "  Name text,"
+                    + "  Position text,"
+                    + "  Nationalität text"
+                    + ");";
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate(sql1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }            
+       }
+        
     }
+
+ 
