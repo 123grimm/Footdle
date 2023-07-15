@@ -11,7 +11,42 @@ public class Main {
 
 		
 		Database database = new Database();
+        if(!database.tableExists("Spieler")) {
+            database.createDB();
+        }
+        
+        kaderD(database);
 
+        
+	}
+
+	public static void kaderD(Database database) {
+        
+        database.insert("fußballspieler", "'" + "Musiala" + "', '" + "ZOM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Neuer" + "', '" + "TW"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Ter Stegen" + "', '" + "TW"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Ginter" + "', '" + "IV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Gosens" + "', '" + "LV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Henrichs" + "', '" + "IV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Kehrer" + "', '" + "IV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Klostermann" + "', '" + "IV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Raum" + "', '" + "LV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Rüdiger" + "', '" + "IV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Schlotterbeck" + "', '" + "IV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Thiaw" + "', '" + "IV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Wolf" + "', '" + "RV"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Brandt" + "', '" + "ZOM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Can" + "', '" + "ZDM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Füllkrug" + "', '" + "ST"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Goretzka" + "', '" + "ZM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Gündogan" + "', '" + "ZM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Havertz" + "', '" + "ZOM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Hofmann" + "', '" + "RM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Kimmich" + "', '" + "ZDM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Sane" + "', '" + "LM"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Werner" + "', '" + "ST"+ "', 'Detuschland'");
+        database.insert("fußballspieler", "'" + "Wirtz" + "', '" + "ZOM"+ "', 'Detuschland'");
+		
 	}
 
 }
