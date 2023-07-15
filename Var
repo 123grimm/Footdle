@@ -14,19 +14,18 @@ public class Var {
 	static JFrame jf1;
 
     
-	static int screenwidth = 1500, screenheight = 1500;
+	static int screenwidth = 1040, screenheight = 600;
 
-    static boolean huerde = false, kRechts = true, kLinks = false, gameOver = false, fertigPt = false;
+    //static boolean huerde = false, kRechts = true, kLinks = false, gameOver = false, fertigPt = false;
 
     
 	//Erkennung des aktiven Bildschirms
 	static int gameActive = 0;
 	//Erkennung für aktiven Button
 	static int buttonNumber = 0,  buttonNumberGame = 0, buttonYN = 0, buttonNS = 0;
-	static String titleTxt = "FOOTDLE EM-Edition", start1 = "Spiel starten", close = "Spiel schließen", regeln = "Regeln anschauen";
-	static String gameQuestion = "Do you realy", gameQuestion2 = "want to exit?", yes = "YES", no = "NO", exit = "Exit", exit2 = "Game?";
 
-	static BufferedImage hintergrundHome, hintergrundSpiel, ersatzbank, deutschlandflagge;
+
+	static BufferedImage hintergrundHome, hintergrundSpiel;
 	
 	//Variablen für Sonstiges:
 	
@@ -36,10 +35,8 @@ public class Var {
 
 	public Var() {
 		try {
-		hintergrundHome = ImageIO.read(new File("rsc/hintergrundHome.jpg"));
+		hintergrundHome = ImageIO.read(new File("rsc/hintergrundHome.png"));
 		hintergrundSpiel = ImageIO.read(new File("rsc/hintergrundSpiel.jpg"));
-		//ersatzbank = ImageIO.read(new File("rsc/ersatzbank.jpg"));
-		deutschlandflagge = ImageIO.read(new File("rsc/Deutschlandflagge.png"));
 		}catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Bilder konnten nicht geladen werden");
