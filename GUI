@@ -18,14 +18,18 @@ public class GUI implements ActionListener{
     private JFrame startscreen;
     private JFrame regelscreen;
     private JFrame spielscreen;
+    
 
     private JLabel regeln;
+    private JLabel spielerT;
     private JLabel ergebnis;
+    private JLabel richtigePosition;
 
     private JButton spielstarten,spielschliesen,spielregeln,zurueck,zurueck2,check;
 
     private BackgroundPanel backPanelHome;
     private BackgroundPanel backPanelSpiel;
+    private BackgroundPanel backPanelRegel;
 
     private JTextField spielerEingabe;
 
@@ -33,15 +37,17 @@ public class GUI implements ActionListener{
 
     int anzahlEingabe;
 
-
+    String[] expectedSpieler;
  
 
     public GUI() {
         //Erzeugt Bild (JFrame allg.)
         this.db = new Database();
         Var data = new Var();
-        this.backPanelHome =new BackgroundPanel(data.hintergrundSpiel);
-        this.backPanelSpiel =new BackgroundPanel(data.hintergrundSpiel);
+        this.backPanelHome =new BackgroundPanel(data.hintergrundHome);
+        this.backPanelSpiel =new BackgroundPanel(data.hintergrundHome);
+        this.backPanelRegel =new BackgroundPanel(data.hintergrundHome);
+        
 
         this.startscreen=new JFrame("Startscreen");
         this.startscreen.setContentPane(this.backPanelHome);
@@ -50,7 +56,11 @@ public class GUI implements ActionListener{
         this.spielscreen=new JFrame("Spielscreen");
         this.spielscreen.setContentPane(this.backPanelSpiel);
         this.spielscreen.setSize(Var.screenwidth, Var.screenheight);
-
+        
+        this.richtigePosition=new JLabel("Richtige Position");
+        this.richtigePosition.setBounds(100,200,150,30); 
+        this.spielscreen.add(this.richtigePosition);
+        
         this.startscreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.startscreen.setLocationRelativeTo(null);
         this.startscreen.setLayout(null);
@@ -84,11 +94,31 @@ public class GUI implements ActionListener{
     this.spielregeln.addActionListener(this);
     this.startscreen.add(this.spielregeln);
     this.regelscreen=new JFrame("Spielregeln");
-    this.regeln=new JLabel("Regeln in Bearbeitung");    
+    this.regelscreen.setContentPane(this.backPanelRegel);
+    this.regelscreen.setSize(Var.screenwidth, Var.screenheight);
+    this.regeln=new JLabel("<html>" +
+    	    "<p>Footdle ist ein Fußballspieler-Erraten Game</p>" +
+    	    "<p>Es funktioniert so:</p>" +
+    	    "<p>Man hat 10 Versuche einen vom Computer zufällig ausgewählten Spieler aus der deutschen Nationalmannschaft zu erraten.</p>" +
+    	    "<p>Um einen Versuch abzugeben, gibt man den Namen eines beliebigen Spielers in die Eingabeleiste ein.</p>" +
+    	    "<p>Bei richtigem Namen wird das Spiel beendet.</p>" +
+    	    "<p>Ist der Name falsch, dann kann man nochmal raten.</p>" +
+    	    "<p>Stimmt dabei die Position überein, so wird das dem Spieler signalisiert.</p>" +
+    	    "<p><br>Mögliche Spieler sind:</p>" + 
+    	    "<p>TW: Neuer, Ter Stegen</p>" + 
+    	    "<p>IV: Ginter, Kehrer, Klostermann, Rüdiger, Schlotterbeeck, Thiaw</p>" +
+    	    "<p>RV: Henrichs, Wolf</p>" + 
+    	    "<p>LV: Gosens, Raum</p>" + 
+    	    "<p>ZDM: Kimmich, Can</p>" + 
+    	    "<p>ZM: Gündogan, Goretzka</p>" + 
+    	    "<p>ZOM: Brandt, Havertz, Wirtz, Musiala</p>" + 
+    	    "<p>RM: Hofmann LM: Sane</p>" + 
+    	    "<p>ST: Füllkrug, Werner</p>" + 
+    	    "</html>");    
 
  
     // set the position for the button in frame   
-    this.regeln.setBounds(500,200,150,30);   
+    this.regeln.setBounds(300,50,1000,400);   
     this.regelscreen.add(this.regeln);
     this.regelscreen.setSize(Var.screenwidth, Var.screenheight);
     this.regelscreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,9 +147,24 @@ public class GUI implements ActionListener{
     this.spielscreen.add(this.check);
 
     this.ergebnis=new JLabel("");    
-    this.ergebnis.setBounds(500,200,150,30);   
+    this.ergebnis.setBounds(500,200,150,30);  
     this.spielscreen.add(this.ergebnis);
-
+    
+    this.spielerT =new JLabel("<html>" +
+    	    "<p><br>Mögliche Spieler sind:</p>" + 
+    	    "<p>TW: Neuer, Ter Stegen</p>" + 
+    	    "<p>IV: Ginter, Kehrer, Klostermann, Rüdiger, Schlotterbeeck, Thiaw</p>" +
+    	    "<p>RV: Henrichs, Wolf</p>" + 
+    	    "<p>LV: Gosens, Raum</p>" + 
+    	    "<p>ZDM: Kimmich, Can</p>" + 
+    	    "<p>ZM: Gündogan, Goretzka</p>" + 
+    	    "<p>ZOM: Brandt, Havertz, Wirtz, Musiala</p>" + 
+    	    "<p>RM: Hofmann LM: Sane</p>" + 
+    	    "<p>ST: Füllkrug, Werner</p>" + 
+    	    "</html>");  
+  
+    this.spielscreen.add(this.spielerT);
+    
     }
 
  
@@ -142,11 +187,15 @@ public class GUI implements ActionListener{
         }
         if(button.equals("Spiel starten"))
         {
+            this.expectedSpieler=this.db.drawRandom();
             this.anzahlEingabe=0;
             this.startscreen.setVisible(false);
             this.spielscreen.setVisible(true);
             this.spielerEingabe.setEnabled(true);
             this.check.setEnabled(true);
+            this.richtigePosition.setText("Position: Unbekannt");
+            System.out.println(this.expectedSpieler[0]);
+            System.out.println(this.expectedSpieler[1]);
     }
         if(button.equals("Zurück")) {
             this.spielscreen.setVisible(false);
@@ -157,18 +206,23 @@ public class GUI implements ActionListener{
         }
         if(button.equals("Check")) {
             this.anzahlEingabe++;
-            boolean eingabeResult= this.db.checkEingabe(this.spielerEingabe.getText());
-
-            if(eingabeResult) {
+            String eingabeResult= this.db.checkEingabe(this.spielerEingabe.getText(),this.expectedSpieler);
+            if(eingabeResult.equals("r")) {
                 this.ergebnis.setText("Richtig");
             }
-            else {
+            else if(eingabeResult.equals("f")) {
                 this.ergebnis.setText("Falsch");
             }
+            else {
 
-            if(anzahlEingabe>=10) {
+                this.ergebnis.setText("Spieler: Falsch, Position: Richtig");
+                this.richtigePosition.setText("Position: "+eingabeResult);
+            }
+
+            if(anzahlEingabe>=10||eingabeResult.equals("r")) {
                 this.spielerEingabe.setEnabled(false);
                 this.check.setEnabled(false);
+                if(!eingabeResult.equals("r"))
                 this.ergebnis.setText("Versuche abgelaufen");
             }
 
